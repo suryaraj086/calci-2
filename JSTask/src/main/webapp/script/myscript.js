@@ -263,7 +263,7 @@ function equals()
   	var output=0;
 	out+=document.getElementById("displayer").value;
 	document.getElementById("displayer1").value=out;
-	output=calculate(out);
+	output=evaluator(out);
 	out="";
 	document.getElementById("displayer").value=numberFormat(output);
 }
@@ -318,61 +318,39 @@ function numberFormat(input){
 }
 
 
-    function evaluate(expression)
+    function evaluator(expression)
     {
-//  expression="12-6+3";
-
+        expression=expression.replaceAll(",","");
         let tokens = expression.split('');
-  
-         // Stack for numbers: 'values'
         let values = [];
-  
-        // Stack for Operators: 'ops'
         let ops = [];
   
         for (let i = 0; i < tokens.length; i++)
         {
-             // Current token is a whitespace, skip it
             if (tokens[i] == ' ')
             {
                 continue;
             }
   
-            // Current token is a number,
-            // push it to stack for numbers
+
             if (tokens[i] >= '0' && tokens[i] <= '9')
             {
                 let sbuf = "";
-                  
-                // There may be more than
-                // one digits in number
                 while (i < tokens.length &&
                         tokens[i] >= '0' &&
-                            tokens[i] <= '9')
+                            tokens[i] <= '9' || tokens[i]=='.')
                 {
                     sbuf = sbuf + tokens[i++];
                 }
-                values.push(parseInt(sbuf, 10));
-                
-                // Right now the i points to
-                // the character next to the digit,
-                // since the for loop also increases
-                // the i, we would skip one
-                //  token position; we need to
-                // decrease the value of i by 1 to
-                // correct the offset.
+                values.push(parseFloat(sbuf, 10));
                   i--;
             }
   
-            // Current token is an opening
-            // brace, push it to 'ops'
             else if (tokens[i] == '(')
             {
                 ops.push(tokens[i]);
             }
-  
-            // Closing brace encountered,
-            // solve entire brace
+
             else if (tokens[i] == ')')
             {
                 while (ops[ops.length - 1] != '(')
@@ -383,19 +361,13 @@ function numberFormat(input){
                 }
                 ops.pop();
             }
-  
-            // Current token is an operator.
             else if (tokens[i] == '+' ||
                      tokens[i] == '-' ||
                      tokens[i] == '*' ||
                      tokens[i] == '/')
             {
                   
-                // While top of 'ops' has same
-                // or greater precedence to current
-                // token, which is an operator.
-                // Apply operator on top of 'ops'
-                // to top two elements in values stack
+
                 while (ops.length > 0 &&
                          hasPrecedence(tokens[i],
                                      ops[ops.length - 1]))
@@ -405,14 +377,11 @@ function numberFormat(input){
                                  values.pop()));
                 }
   
-                // Push current token to 'ops'.
                 ops.push(tokens[i]);
             }
         }
   
-        // Entire expression has been
-        // parsed at this point, apply remaining
-        // ops to remaining values
+
         while (ops.length > 0)
         {
             values.push(applyOp(ops.pop(),
@@ -420,15 +389,12 @@ function numberFormat(input){
                             values.pop()));
         }
   
-        // Top of 'values' contains
         var out=values.pop()
-console.log(out)
+		console.log(out)
         return out;
     }
   
-    // Returns true if 'op2' has
-    // higher or same precedence as 'op1',
-    // otherwise returns false.
+
     function hasPrecedence(op1, op2)
     {
         if (op2 == '(' || op2 == ')')
@@ -446,9 +412,7 @@ console.log(out)
         }
     }
   
-    // A utility method to apply an
-    // operator 'op' on operands 'a'
-    // and 'b'. Return the result.
+
     function applyOp(op, b, a)
     {
         switch (op)
@@ -464,7 +428,7 @@ console.log(out)
             {
                 document.write("Cannot divide by zero");
             }
-            return parseInt(a / b, 10);
+            return a / b;
         }
         return 0;
     }

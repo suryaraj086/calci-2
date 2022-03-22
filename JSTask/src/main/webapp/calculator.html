@@ -9,6 +9,7 @@
 #displayer
 {
 font-weight: bold;
+font-size: 25px;
 }
 #display{
 height: 70px;
@@ -37,7 +38,7 @@ input[type=button]:active {
 input[type=text]
 {
 height: 50px;
-font-size: 25px; 
+font-size: 23px; 
 width: 100%;
 text-align: right;
 }
@@ -88,8 +89,8 @@ width:290px	;
 <tr>
 <th><input type="button" value="AC" onclick="calci(ac)" id="ac" name="button"></th>
 <th><input type="button" value="CE" onclick="calci(ce)" id="ce" name="button"></th>
-<th><input type="button" value="&radic;" onclick="calci(radic)" id="radic" name="button"></th>
-<th><input type="button" value="%" onclick="calci('%')" id="%" name="button"></th>
+<th><input type="button" value="(" onclick="calci('(')" id="radic" name="button"></th>
+<th><input type="button" value=")" onclick="calci(')')" id="%" name="button"></th>
 </tr>
 
 <tr>
@@ -121,7 +122,7 @@ width:290px	;
 </tr>
 
 </table>
-<!-- <input type="button" value="*" id="asdasd" name="button"> -->
+<!-- <input type="button" value="*" onclick="evaluator('12-6+4')" id="asdasd" name="button"> -->
 </div>
 </form>
 <input type="hidden" id="hidden" value="0">

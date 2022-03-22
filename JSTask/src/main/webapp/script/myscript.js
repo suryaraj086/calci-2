@@ -112,9 +112,9 @@ function calci(number)
 	//addition
 	if(number=='+')
 	{	
-	document.getElementById('*').style.backgroundColor="black";
-	document.getElementById('/').style.backgroundColor="black";
-	document.getElementById('-').style.backgroundColor="black";
+	document.getElementById('*').style.backgroundColor="#000000a6";
+	document.getElementById('/').style.backgroundColor="#000000a6";
+	document.getElementById('-').style.backgroundColor="#000000a6";
 	out+=document.getElementById("displayer").value;
 	document.getElementById(number).style.backgroundColor="red";
 	exp=out;
@@ -141,9 +141,9 @@ function calci(number)
 	else if(number=='-')
 	{
 	document.getElementById("displayer1").value=out;
-	document.getElementById('*').style.backgroundColor="black";
-	document.getElementById('/').style.backgroundColor="black";
-	document.getElementById('+').style.backgroundColor="black";
+	document.getElementById('*').style.backgroundColor="#000000a6";
+	document.getElementById('/').style.backgroundColor="#000000a6";
+	document.getElementById('+').style.backgroundColor="#000000a6";
 	out+=document.getElementById("displayer").value;
 	exp=out;
 	if(exp.charAt(exp.length-1)=="-")
@@ -169,9 +169,9 @@ function calci(number)
 	else if(number=='*')
 	{
 	document.getElementById("displayer1").value=out;
-	document.getElementById('+').style.backgroundColor="black";
-	document.getElementById('/').style.backgroundColor="black";
-	document.getElementById('-').style.backgroundColor="black";
+	document.getElementById('+').style.backgroundColor="#000000a6";
+	document.getElementById('/').style.backgroundColor="#000000a6";
+	document.getElementById('-').style.backgroundColor="#000000a6";
 	out+=document.getElementById("displayer").value;
 	exp=out;
 	if(exp.charAt(exp.length-1)=="-")
@@ -197,9 +197,9 @@ function calci(number)
 	//division
 	else if(number=='/')
 	{
-	document.getElementById('*').style.backgroundColor="black";
-	document.getElementById('+').style.backgroundColor="black";
-	document.getElementById('-').style.backgroundColor="black";
+	document.getElementById('*').style.backgroundColor="#000000a6";
+	document.getElementById('+').style.backgroundColor="#000000a6";
+	document.getElementById('-').style.backgroundColor="#000000a6";
 	out+=document.getElementById("displayer").value;
 	exp=out;
 	if(exp.charAt(exp.length-1)=="-")
@@ -256,10 +256,10 @@ function calci(number)
 
 function equals()
 {
-	document.getElementById('+').style.backgroundColor="black";
-	document.getElementById('*').style.backgroundColor="black";
-	document.getElementById('/').style.backgroundColor="black";
-	document.getElementById('-').style.backgroundColor="black";
+	document.getElementById('+').style.backgroundColor="#000000a6";
+	document.getElementById('*').style.backgroundColor="#000000a6";
+	document.getElementById('/').style.backgroundColor="#000000a6";
+	document.getElementById('-').style.backgroundColor="#000000a6";
   	var output=0;
 	out+=document.getElementById("displayer").value;
 	document.getElementById("displayer1").value=out;

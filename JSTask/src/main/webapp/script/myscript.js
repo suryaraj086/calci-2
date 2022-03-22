@@ -109,17 +109,21 @@ let out="";
 var exp;
 function calci(number)
 {
- 
+	//addition
 	if(number=='+')
 	{	
 	document.getElementById('*').style.backgroundColor="black";
 	document.getElementById('/').style.backgroundColor="black";
 	document.getElementById('-').style.backgroundColor="black";
 	out+=document.getElementById("displayer").value;
-	
 	document.getElementById(number).style.backgroundColor="red";
 	exp=out;
-	if(exp.charAt(exp.length-2)=="*" || exp.charAt(exp.length-2)=="/" || exp.charAt(exp.length-2)=="+" || exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" ")
+	if(exp.charAt(exp.length-1)=="-")
+	{
+		document.getElementById(number).style.backgroundColor="red";
+		out=exp.substring(0,exp.length-2)
+	}
+	else if(exp.charAt(exp.length-2)=="*" || exp.charAt(exp.length-2)=="/" || exp.charAt(exp.length-2)=="+" || exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" ")
 	{
 	out=exp.substring(0, exp.length-3);
 	console.log(out);
@@ -133,7 +137,7 @@ function calci(number)
 	document.getElementById("displayer").value="";
 	}
 	}
-	
+	//subtraction
 	else if(number=='-')
 	{
 	document.getElementById("displayer1").value=out;
@@ -142,7 +146,12 @@ function calci(number)
 	document.getElementById('+').style.backgroundColor="black";
 	out+=document.getElementById("displayer").value;
 	exp=out;
-	if(exp.charAt(exp.length-2)=="*" ||exp.charAt(exp.length-2)=="/" ||exp.charAt(exp.length-2)=="+" ||exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" " ){
+	if(exp.charAt(exp.length-1)=="-")
+	{
+		document.getElementById(number).style.backgroundColor="red";
+		out=exp.substring(0,exp.length-2)
+	}
+	else if(exp.charAt(exp.length-2)=="*" ||exp.charAt(exp.length-2)=="/" ||exp.charAt(exp.length-2)=="+" ||exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" "){
 	document.getElementById(number).style.backgroundColor="red";
     out+=document.getElementById("displayer").value;
 	document.getElementById("displayer").value=" -";
@@ -156,6 +165,7 @@ function calci(number)
 	}
 	}
 	
+	//multiplication
 	else if(number=='*')
 	{
 	document.getElementById("displayer1").value=out;
@@ -164,7 +174,12 @@ function calci(number)
 	document.getElementById('-').style.backgroundColor="black";
 	out+=document.getElementById("displayer").value;
 	exp=out;
-	if(exp.charAt(exp.length-2)=="*" || exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" " ||exp.charAt(exp.length-2)=="/" ||exp.charAt(exp.length-2)=="+" ){
+	if(exp.charAt(exp.length-1)=="-")
+	{
+		document.getElementById(number).style.backgroundColor="red";
+		out=exp.substring(0,exp.length-2)
+	}
+	else if(exp.charAt(exp.length-2)=="*" || exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" " ||exp.charAt(exp.length-2)=="/" ||exp.charAt(exp.length-2)=="+"){
     out=exp.substring(0, exp.length-3);
 	document.getElementById(number).style.backgroundColor="red";
 	out+=" * ";
@@ -179,15 +194,20 @@ function calci(number)
 	document.getElementById("displayer").value="";
 	}
 	}
-	
+	//division
 	else if(number=='/')
 	{
 	document.getElementById('*').style.backgroundColor="black";
 	document.getElementById('+').style.backgroundColor="black";
 	document.getElementById('-').style.backgroundColor="black";
 	out+=document.getElementById("displayer").value;
-	 exp=out;
-	if(exp.charAt(exp.length-2)=="*" ||exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" " ||exp.charAt(exp.length-2)=="+" || exp.charAt(exp.length-2)=="/"){
+	exp=out;
+	if(exp.charAt(exp.length-1)=="-")
+	{
+		document.getElementById(number).style.backgroundColor="red";
+		out=exp.substring(0,exp.length-2)
+	}
+	else if(exp.charAt(exp.length-2)=="*" ||exp.charAt(exp.length-2)=="-" && exp.charAt(exp.length-1)==" " ||exp.charAt(exp.length-2)=="+" || exp.charAt(exp.length-2)=="/"){
 	out=exp.substring(0, exp.length-3);
 	document.getElementById(number).style.backgroundColor="red";
 	out+=" / ";
@@ -205,9 +225,9 @@ function calci(number)
 	
 	else if(number==ce)
 	{  
-		exp = document.getElementById("displayer").value;  
+	exp = document.getElementById("displayer").value;  
 	document.getElementById("displayer").value= exp.substring(0, exp.length - 1);   
-	} 
+	}
 	 
 	else if(number==ac)
 	{
@@ -221,16 +241,21 @@ function calci(number)
 	document.getElementById("hidden").value=document.getElementById("hidden").value+document.getElementById("displayer").value;
 	document.getElementById("displayer").value="";
 	}
+	
 	else
 	{
 	document.getElementById("displayer").value+=number;
+	var num="";
+	var dis= document.getElementById("displayer").value;
+	dis=dis.replaceAll(",","");
+	num=numberFormat(dis);
+    document.getElementById("displayer").value=num;
 	document.getElementById("displayer1").value+=number;
 	}
-
 }
 
 function equals()
-{	
+{
 	document.getElementById('+').style.backgroundColor="black";
 	document.getElementById('*').style.backgroundColor="black";
 	document.getElementById('/').style.backgroundColor="black";
@@ -238,17 +263,19 @@ function equals()
   	var output=0;
 	out+=document.getElementById("displayer").value;
 	document.getElementById("displayer1").value=out;
-	output=cal(out);
+	output=calculate(out);
 	out="";
-	document.getElementById("displayer").value=output;
+	document.getElementById("displayer").value=numberFormat(output);
 }
 
-function cal(str){
-    let arr = str.split(" ");
- arr =  arr.filter(e =>  e);
+function calculate(str){	
+	
+	str=str.replaceAll(",","");
+	let arr = str.split(" ");
+	arr =  arr.filter(e =>  e);
+	
     for(var a=0;a<arr.length;a+=2)
 	{
-	console.log("This is loop "+arr[a]);
         switch (arr[a+1]) {
             case '+':
                 arr[a+2] = (+arr[a] + +arr[a+2]);
@@ -273,8 +300,19 @@ function cal(str){
         };
    	 if(a==arr.length-1)
 	 {
-		console.log("This is return "+arr[a]);
 		return arr[a];
 	 }
 	}
+}
+
+function numberFormat(input){
+	
+ 	var str = input.toString().split(".");
+	var length=str[0].length;
+ 	var ch=str[0].charAt(length-1);
+	str[0]=str[0].substring(0, str[0].length-1);
+    str[0] = str[0].replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+	str[0]=str[0]+ch;
+    return str.join(".");
+	
 }
